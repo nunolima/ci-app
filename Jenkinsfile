@@ -19,14 +19,14 @@ def appOutput(String line = '---') {
 
 node {
   // STAGING
-  stage('BuildAndDeployStagingNG') {
+  stage('StagOneNG') {
     if (action in ["BuildAndDeployStaging", "BuildAndDeployStagingNG"]) {
       appOutput(app1.helmStagingValuesFilename())
     }
   }
 
   // PRODUCTION
-  stage('BuildAndDeployProductionNG') {
+  stage('ProdOneNG') {
     if (action in ["BuildAndDeployProduction", "BuildAndDeployProductionNG"]) {
       appOutput()
     }
