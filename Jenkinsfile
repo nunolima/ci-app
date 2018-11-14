@@ -32,3 +32,44 @@ node {
     }
   }
 }
+
+/*
+stage('StagOneNG') {
+  stages {
+    // One or more stages need to be included within the stages block.
+  }
+
+  input {
+    message 'Staging One NG'
+  }
+
+  environment {
+    APP = "ci-app"
+    LINUX = "debian"
+  }
+
+  options {
+    checkoutToSubdirectory './temprepo'
+    timestamps
+  }
+
+  when {
+    branch 'dev'
+    beforeAgent true
+  }
+
+  tools {
+    git 'Default'
+  }
+
+  post {
+    success {
+      // One or more steps need to be included within each condition's block.
+    }
+  }
+}
+*/
+
+
+// ver: https://jenkins.io/doc/book/pipeline/syntax/#stage
+
