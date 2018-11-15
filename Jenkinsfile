@@ -29,6 +29,7 @@ class App {
 
 
 class AppUtils {
+
   static String build(String userAction, appMap) {
     String actionService = AppUtils.getActionService(userAction)
     if (actionService != '*') {
@@ -110,14 +111,7 @@ pipeline {
         echo appMap.get(action).repo
         echo "### SERVICE: " + appMap.get(action).getService()
 
-        echo App.build()
-
-        
-        if ()
-        for( String values : str )
-          echo values
-
-
+        echo AppUtils.build(action, appMap)
 
 //        sh 'npm --version'
       }
