@@ -18,21 +18,22 @@ class App {
 
   static String getTarget(String action) {
     String[] str = action.split('-')
+    str[0]
+  }
     
     //for( String values : str )
     //  echo values
 
-    if (action.size == 3) {
-      str[2]
-    } else {
-      'error'
-    }
+//    if (action.size == 3)
+//      str[2]
+//    else
+//      'error'
 }
 
 
 
-String[] countries = ['ci', 'eg', 'ke', 'ma', 'ng'];
-String[] services = ['one', 'flights', 'jforce'];
+String[] countries = ['ci', 'eg', 'ke', 'ma', 'ng']
+String[] services = ['one', 'flights', 'jforce']
 def app = new App(
                 repo:           'daenerys',
                 repoBranch:     'dev',
