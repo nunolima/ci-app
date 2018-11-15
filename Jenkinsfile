@@ -106,10 +106,9 @@ pipeline {
       }
       steps {
         echo 'Building'
-        echo app.userAction
 //        echo appMap.get(action)
-        echo appMap.get(action).repo
-        echo "### SERVICE: " + appMap.get(action).getService()
+//        echo appMap.get(action).repo
+//        echo "### SERVICE: " + appMap.get(action).getService()
 
         echo AppUtils.build(action, appMap)
 
