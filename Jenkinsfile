@@ -28,15 +28,17 @@ class App {
 }
 
 
-def appBuild(String userAction, Map<String,App> appMap) {
-  if (appMap.size() < 1)
+def appBuild(String userAction, Map<String,App> aMap) {
+  echo 'aMap.size(): ' + aMap.size()
+  if (aMap.size() < 1)
     return '---ERROR---'
+  echo 'aMap.values(): ' + aMap.values()
   String actionService = getActionService(userAction)
   echo actionService
   if (actionService != '*') {
     echo "================= BUILD FOR ALL SERVICES ================"
-    for( App app : appMap ) {
-      echo '--> ' + app.helmStagingValuesFilename()
+    for( App a : aMap ) {
+      echo '--> ' + a.helmStagingValuesFilename()
     }
     echo '===================================='
   } else {
