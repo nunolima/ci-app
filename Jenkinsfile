@@ -4,34 +4,20 @@ class App {
   String repo
   String repoBranch
   String repoKey
-  String cfgStagBranch
-  String cfgProdBranch
+  String service
+  String cfgRepo
+  String cfgBranch
   String chartType
-  String userAction
+  String country
 
-  static String getConfigRepo(String service = 'one') {
+  String getConfigRepo() {
     'configs' + service
   }
 
-  String helmStagingValuesFilename(String service, String country) {
+  String helmStagingValuesFilename() {
     'staging-' + service + '-' + repo + '-' + country + '.yaml'
   }
 
-  static String getTarget(String action) {
-    String[] str = action.split('-')
-    str[0]
-  }
-
-  static String getiService(String action) {
-    String[] str = action.split('-')
-    str[0]
-  }
-
-  static String getCountry(String action) {
-    String[] str = action.split('-')
-    str[0]
-  }
-    
     //for( String values : str )
     //  echo values
 
@@ -42,22 +28,68 @@ class App {
 }
 
 
-String[] countries = ['ci', 'eg', 'ke', 'ma', 'ng']
-String[] services = ['one', 'flights', 'jforce']
-def app = new App(
-                repo:           'daenerys',
-                repoBranch:     'dev',
-                repoKey:        '20e0cddc-61b3-40c3-a6bc-f630d210b518',
-                cfgStagBranch:  'dev',
-                cfgProdBranch:  'production',
-                chartType:      'raw',
-                userAction:     action
-              )
+class AppUtils {
+  static String build(String userAction, appMap) {
+    String actionService = AppUtils.getActionService(userAction)
+    if actionService != '*' {
+      echo '====== BUILD FOR ALL SERVICES ======'
+      for( App app : appMap ) {
+        echo '--> ' + app.helmStagingValuesFilename()
+      }
+      echo '===================================='
+    } else {
+      echo actionService
+    }
+  }
 
+  // TARGET: ['staging'|'production']
+  static String getActionTarget(String action) {
+    String[] str = action.split('-')
+    str[0]
+  }
+
+  // SERVICE: ['*'|'one'|'flights'|'jforce']
+  static String getActionService(String action) {
+    String[] str = action.split('-')
+    str[1]
+  }
+
+  // COUNTRY: ['*'|'ci'|'eg'|'ke'|'ma'|'ng']
+  static String getActionCountry(String action) {
+    String[] str = action.split('-')
+    str[2]
+  }
+}
+
+
+//String buildApp(String userAction, def appMap)
+
+// 'staging-*-*'
+// 'production-*-*'
 
 def appMap = [:]
-appMap.put('staging-one-ng', app)
-appMap.put('staging-one-eg', app)
+appMap['staging-one-ng'] = new App(
+  repo:       'daenerys',
+  repoBranch: 'dev',
+  repoKey:    '20e0cddc-61b3-40c3-a6bc-f630d210b518',
+  service:    'one',
+  cfgRepo:    'configsone',
+  cfgBranch:  'dev',
+  chartType:  'raw',
+  country:    'ng'
+)
+
+appMap['staging-one-eg'] = new App(
+  repo:       'daenerys',
+  repoBranch: 'dev',
+  repoKey:    '20e0cddc-61b3-40c3-a6bc-f630d210b518',
+  service:    'one',
+  cfgRepo:    'configsone',
+  cfgBranch:  'production',
+  chartType:  'raw',
+  country:    'eg'
+)
+
 
 // ====================== PIPELINE ========================
 pipeline {
@@ -76,6 +108,16 @@ pipeline {
         echo app.userAction
 //        echo appMap.get(action)
         echo appMap.get(action).repo
+        echo "### SERVICE: " + appMap.get(action).getService()
+
+        echo App.build()
+
+        
+        if ()
+        for( String values : str )
+          echo values
+
+
 
 //        sh 'npm --version'
       }
