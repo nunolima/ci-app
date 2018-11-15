@@ -111,7 +111,7 @@ pipeline {
     stage('Build') {
       when {
         expression {
-          action.startsWith("staging")
+          action.startsWith("staging-*")
         }                
       }
       steps {
