@@ -37,10 +37,14 @@ def appBuild(String userAction, Map<String,App> aMap) {
   echo actionService
   if (actionService != '*') {
     echo "================= BUILD FOR ALL SERVICES ================"
-    for( App a : aMap ) {
-      echo '--> ' + a
-//      echo '--> ' + a.helmStagingValuesFilename()
+    for(String kset : aMap.keySet() ) {
+      echo '>>>' + kset
     }
+
+//    for( App a : aMap ) {
+//      echo '--> ' + a
+//      echo '--> ' + a.helmStagingValuesFilename()
+//    }
     echo '===================================='
   } else {
     echo actionService
