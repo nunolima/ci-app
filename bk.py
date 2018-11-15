@@ -7,15 +7,15 @@ def index():
  
 @app.route("/hello")
 def hello():
-    return "Hello World! X +++++++++"
+    return "Hello World! ++++XXX++++"
  
 @app.route("/members")
 def members():
-    return "Members --X--"
+    return "Members ----"
  
 @app.route("/members/<string:name>/")
 def getMember(name):
     return name
  
 if __name__ == "__main__":
-    app.run()
+    app.run(

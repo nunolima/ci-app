@@ -1,37 +1,92 @@
+#!/usr/bin/env groovy
+
 class App {
   String repo
-  String key
-  String serviceName
-  String stagBranch
-  String prodBranch
+  String repoBranch
+  String repoKey
+  String cfgStagBranch
+  String cfgProdBranch
+  String chartType
 
-  def helmStagingValuesFilename() {
-    'staging-' + repo + '-' + serviceName + '-' + repo + '.yaml'
+  static String getConfigRepo(String service = 'one') {
+    'configs' + service
+  }
+
+  String helmStagingValuesFilename(String service, ) {
+    'staging-' + repo + '-' + service + '-' + repo + '.yaml'
   }
 
 }
 
-def app1 = new App(repo: 'mario', key: 'AS$I$A#RG%4923bnf#4r', stagBranch: 'dev', prodBranch: 'production')
 
-def appOutput(String line = '---') {
-  echo line
-}
 
-node {
-  // STAGING
-  stage('StagOneNG') {
-    if (action in ["Build", "StagOneNG"]) {
-      appOutput(app1.helmStagingValuesFilename())
+String[] countries = ['ci', 'eg', 'ke', 'ma', 'ng'];
+String[] services = ['one', 'flights', 'jforce'];
+def app = new App(
+                repo:           'daenerys',
+                repoBranch:     'dev',
+                repoKey:        '20e0cddc-61b3-40c3-a6bc-f630d210b518',
+                cfgStagBranch:  'dev',
+                cfgProdBranch:  'production',
+                chartType:      'raw'
+              )
+
+// ====================== PIPELINE ========================
+pipeline {
+  agent any
+  stages {
+
+    // BUILD
+    stage('Build') {
+      when {
+        expression {
+          action.startsWith("staging")
+        }                
+      }
+      steps {
+        echo 'Building'
+//        sh 'npm --version'
+      }
     }
-  }
-
-  // PRODUCTION
-  stage('ProdOneNG') {
-    if (action in ["Build", "ProdOneNG"]) {
-      appOutput()
+    
+    // TEST
+    stage('Test') {
+      when {
+        environment name: 'RUN_TESTS', value: 'true'
+      }
+      steps {
+        echo 'Testing'
+      }
     }
+    
+    // DEPLOY TO STAGING
+    stage('DeployStaging') {
+      when {
+        expression {
+          action.startsWith("staging")
+        }
+      }
+      steps {
+        echo 'Deploying to Staging...'
+      }
+    }
+
+    // DEPLOY TO PRODUCTION
+    stage('DeployProduction') {
+      when {
+        expression {
+          action.startsWith("production")
+        }
+      }
+      steps {
+        echo 'Deploying to Production...'
+      }
+    }
+
   }
 }
+
+
 
 /*
 stage('StagOneNG') {
