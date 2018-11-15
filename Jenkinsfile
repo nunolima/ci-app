@@ -15,7 +15,7 @@ class App {
   }
 
   String helmStagingValuesFilename() {
-    'staging-' + service + '-' + repo + '-' + country + '.yaml'
+    return 'staging-' + service + '-' + repo + '-' + country + '.yaml'
   }
 
     //for( String values : str )
@@ -28,10 +28,11 @@ class App {
 }
 
 
-def appBuild(String userAction, Map appMap) {
+def appBuild(String userAction, Map<String,App> appMap) {
   if (appMap.size() < 1)
     return '---ERROR---'
   String actionService = getActionService(userAction)
+  echo actionService
   if (actionService != '*') {
     echo "================= BUILD FOR ALL SERVICES ================"
     for( App app : appMap ) {
