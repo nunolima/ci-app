@@ -29,14 +29,13 @@ class App {
 
 
 def appBuild(String userAction, appMap) {
-  //String actionService = AppUtils.getActionService(userAction)
-  String actionService = 'eg'
+  String actionService = getActionService(userAction)
   if (actionService != '*') {
     echo "================= BUILD FOR ALL SERVICES ================"
-    //for( App app : appMap ) {
-    //  echo '--> ' + app.helmStagingValuesFilename()
-    //}
-    //echo '===================================='
+    for( App app : appMap ) {
+      echo '--> ' + app.helmStagingValuesFilename()
+    }
+    echo '===================================='
   } else {
     echo actionService
   }
