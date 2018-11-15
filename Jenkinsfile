@@ -39,7 +39,7 @@ def appBuild(String userAction, Map<String,App> aMap) {
     echo "================= BUILD FOR ALL SERVICES ================"
     for(String kset : aMap.keySet() ) {
       echo '>>>' + kset
-      aMap.get(kset).helmStagingValuesFilename()
+      echo '>>>' + aMap.get(kset).helmStagingValuesFilename()
     }
 
 //    for( App a : aMap ) {
