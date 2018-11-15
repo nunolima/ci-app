@@ -1,23 +1,5 @@
 #!/usr/bin/env groovy
 
-class Logger {
-  // Standard output
-  private static out = System.out
-
-  public static setOutput(out) {
-    this.out = out
-  }
-
-  public static log(String message) {
-    Logger.out.println(message)
-  }
-}
-
-def config = new HashMap()
-def binding = getBinding()
-config.putAll(binding.getVariables())
-Logger.setOutput(config['out'])
-
 class App {
   String repo
   String repoBranch
@@ -46,42 +28,39 @@ class App {
 }
 
 
-class AppUtils {
-
-  static build(String userAction, appMap) {
-    //String actionService = AppUtils.getActionService(userAction)
-    String actionService = 'eg'
-    if (actionService != '*') {
-      Logger.log("================= BUILD FOR ALL SERVICES ================")
-      //for( App app : appMap ) {
-      //  echo '--> ' + app.helmStagingValuesFilename()
-      //}
-      //echo '===================================='
-    } else {
-      Logger.log("========")
-      echo actionService
-    }
-  }
-
-  // TARGET: ['staging'|'production']
-  static String getActionTarget(String action) {
-    String[] str = action.split('-')
-    str[0]
-  }
-
-  // SERVICE: ['*'|'one'|'flights'|'jforce']
-  static String getActionService(String action) {
-    String[] str = action.split('-')
-    str[1]
-  }
-
-  // COUNTRY: ['*'|'ci'|'eg'|'ke'|'ma'|'ng']
-  static String getActionCountry(String action) {
-    String[] str = action.split('-')
-    str[2]
+def appBuild(String userAction, appMap) {
+  //String actionService = AppUtils.getActionService(userAction)
+  String actionService = 'eg'
+  if (actionService != '*') {
+    echo "================= BUILD FOR ALL SERVICES ================"
+    //for( App app : appMap ) {
+    //  echo '--> ' + app.helmStagingValuesFilename()
+    //}
+    //echo '===================================='
+  } else {
+    echo actionService
   }
 }
 
+// TARGET: ['staging'|'production']
+def String getActionTarget(String action) {
+  String[] str = action.split('-')
+  str[0]
+}
+
+// SERVICE: ['*'|'one'|'flights'|'jforce']
+def String getActionService(String action) {
+  String[] str = action.split('-')
+  str[1]
+}
+
+// COUNTRY: ['*'|'ci'|'eg'|'ke'|'ma'|'ng']
+def String getActionCountry(String action) {
+  String[] str = action.split('-')
+  str[2]
+}
+
+// ==================================================================
 
 //String buildApp(String userAction, def appMap)
 
@@ -130,7 +109,7 @@ pipeline {
 //        echo appMap.get(action).repo
 //        echo "### SERVICE: " + appMap.get(action).getService()
 
-        echo AppUtils.build(action, appMap)
+        echo appBuild(action, appMap)
 
 //        sh 'npm --version'
       }
