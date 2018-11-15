@@ -31,7 +31,8 @@ class App {
 class AppUtils {
 
   static String build(String userAction, appMap) {
-    String actionService = AppUtils.getActionService(userAction)
+    //String actionService = AppUtils.getActionService(userAction)
+    String actionService = 'eg'
     if (actionService != '*') {
       echo '====== BUILD FOR ALL SERVICES ======'
       for( App app : appMap ) {
