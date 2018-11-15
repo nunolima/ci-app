@@ -42,6 +42,8 @@ class App {
 }
 
 
+staging-one-ng
+
 
 String[] countries = ['ci', 'eg', 'ke', 'ma', 'ng']
 String[] services = ['one', 'flights', 'jforce']
@@ -54,6 +56,11 @@ def app = new App(
                 chartType:      'raw',
                 userAction:     action
               )
+
+
+def appMap = [:]
+appMap.put('staging-one-ng', app)
+appMap.put('staging-one-eg', app)
 
 // ====================== PIPELINE ========================
 pipeline {
@@ -70,6 +77,9 @@ pipeline {
       steps {
         echo 'Building'
         echo app.userAction
+        echo appMap.get(action)
+        echo appMap.get(action).repo
+
 //        sh 'npm --version'
       }
     }
