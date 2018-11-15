@@ -38,7 +38,8 @@ def appBuild(String userAction, Map<String,App> aMap) {
   if (actionService != '*') {
     echo "================= BUILD FOR ALL SERVICES ================"
     for( App a : aMap ) {
-      echo '--> ' + a.helmStagingValuesFilename()
+      echo '--> ' + a.inspect()
+//      echo '--> ' + a.helmStagingValuesFilename()
     }
     echo '===================================='
   } else {
