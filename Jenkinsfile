@@ -16,6 +16,17 @@ class App {
     'staging-' + service + '-' + repo + '-' + country + '.yaml'
   }
 
+  static String getTarget(String action) {
+    String[] str = action.split('-')
+    
+    //for( String values : str )
+    //  echo values
+
+    if (action.size == 3) {
+      str[2]
+    } else {
+      'error'
+    }
 }
 
 
@@ -80,12 +91,7 @@ pipeline {
       }
       steps {
         echo 'Deploying to Production...'
-
-        String[] str = action.split('-')
-        
-        for( String values : str )
-          echo values
-
+        echo App.getTarget(action)
       }
     }
 
