@@ -42,9 +42,6 @@ class App {
 }
 
 
-staging-one-ng
-
-
 String[] countries = ['ci', 'eg', 'ke', 'ma', 'ng']
 String[] services = ['one', 'flights', 'jforce']
 def app = new App(
