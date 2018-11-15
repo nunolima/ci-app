@@ -80,6 +80,12 @@ pipeline {
       }
       steps {
         echo 'Deploying to Production...'
+
+        String[] str = action.split('-')
+        
+        for( String values : str )
+          echo values
+
       }
     }
 
