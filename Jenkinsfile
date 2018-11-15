@@ -28,7 +28,9 @@ class App {
 }
 
 
-def appBuild(String userAction, appMap) {
+def appBuild(String userAction, Map appMap) {
+  if (appMap.size() < 1)
+    return '---ERROR---'
   String actionService = getActionService(userAction)
   if (actionService != '*') {
     echo "================= BUILD FOR ALL SERVICES ================"
@@ -39,6 +41,7 @@ def appBuild(String userAction, appMap) {
   } else {
     echo actionService
   }
+  return '---OK---'
 }
 
 // TARGET: ['staging'|'production']
