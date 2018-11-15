@@ -31,7 +31,7 @@ class App {
 class AppUtils {
   static String build(String userAction, appMap) {
     String actionService = AppUtils.getActionService(userAction)
-    if actionService != '*' {
+    if (actionService != '*') {
       echo '====== BUILD FOR ALL SERVICES ======'
       for( App app : appMap ) {
         echo '--> ' + app.helmStagingValuesFilename()
