@@ -7,6 +7,7 @@ class App {
   String cfgStagBranch
   String cfgProdBranch
   String chartType
+  String userAction
 
   static String getConfigRepo(String service = 'one') {
     'configs' + service
@@ -17,6 +18,16 @@ class App {
   }
 
   static String getTarget(String action) {
+    String[] str = action.split('-')
+    str[0]
+  }
+
+  static String getiService(String action) {
+    String[] str = action.split('-')
+    str[0]
+  }
+
+  static String getCountry(String action) {
     String[] str = action.split('-')
     str[0]
   }
@@ -40,7 +51,8 @@ def app = new App(
                 repoKey:        '20e0cddc-61b3-40c3-a6bc-f630d210b518',
                 cfgStagBranch:  'dev',
                 cfgProdBranch:  'production',
-                chartType:      'raw'
+                chartType:      'raw',
+                userAction:     action
               )
 
 // ====================== PIPELINE ========================
@@ -57,6 +69,7 @@ pipeline {
       }
       steps {
         echo 'Building'
+        echo app.userAction
 //        sh 'npm --version'
       }
     }
