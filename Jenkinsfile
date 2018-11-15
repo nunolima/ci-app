@@ -34,11 +34,11 @@ class AppUtils {
     //String actionService = AppUtils.getActionService(userAction)
     String actionService = 'eg'
     if (actionService != '*') {
-      echo '====== BUILD FOR ALL SERVICES ======'
-      for( App app : appMap ) {
-        echo '--> ' + app.helmStagingValuesFilename()
-      }
-      echo '===================================='
+      getBinding().out.println('====== BUILD FOR ALL SERVICES ======')
+      //for( App app : appMap ) {
+      //  echo '--> ' + app.helmStagingValuesFilename()
+      //}
+      //echo '===================================='
     } else {
       echo actionService
     }
