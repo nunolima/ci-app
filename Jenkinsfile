@@ -77,7 +77,7 @@ pipeline {
       steps {
         echo 'Building'
         echo app.userAction
-        echo appMap.get(action)
+//        echo appMap.get(action)
         echo appMap.get(action).repo
 
 //        sh 'npm --version'
