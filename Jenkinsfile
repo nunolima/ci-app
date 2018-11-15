@@ -34,7 +34,7 @@ class AppUtils {
     //String actionService = AppUtils.getActionService(userAction)
     String actionService = 'eg'
     if (actionService != '*') {
-      getBinding().out.println('====== BUILD FOR ALL SERVICES ======')
+      hudson.model.getBinding().out.println('====== BUILD FOR ALL SERVICES ======')
       //for( App app : appMap ) {
       //  echo '--> ' + app.helmStagingValuesFilename()
       //}
