@@ -10,7 +10,7 @@ class AppImage {
   }
 
   String checkoutRepository() {
-    return (this.getAppName() + ': ' + repo + ' - ' + repoBranch + ' - ' repoKey)
+    return this.getAppName() + ': ' + repo + ' - ' + repoBranch + ' - ' repoKey + '...'
     //tools.checkoutRepositoryNoPoll('dev', 'daenerys', '20e0cddc-61b3-40c3-a6bc-f630d210b518')
   }
 
