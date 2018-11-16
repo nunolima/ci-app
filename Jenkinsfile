@@ -146,6 +146,8 @@ pipeline {
           appImage.loadBuildTag()
         }
 
+        echo '>>>>>>>> BuildTag: ' + appImage.buildTag
+
 //        echo appMap.get(action)
 //        echo appMap.get(action).repo
 //        echo "### SERVICE: " + appMap.get(action).getService()
