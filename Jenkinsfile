@@ -5,12 +5,12 @@ class AppImage {
   String repoBranch
   String repoKey
 
-  def String getAppName() {
+  String getAppName() {
     repo.substring(0, 1).toUpperCase() + repo.substring(1)
   }
 
-  def String checkoutRepository() {
-    echo this.getAppName() + ': ' + repo + ' - ' + repoBranch + ' - ' repoKey
+  String checkoutRepository() {
+    return this.getAppName() + ': ' + repo + ' - ' + repoBranch + ' - ' repoKey
     //tools.checkoutRepositoryNoPoll('dev', 'daenerys', '20e0cddc-61b3-40c3-a6bc-f630d210b518')
   }
 
