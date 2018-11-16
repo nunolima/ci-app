@@ -132,9 +132,11 @@ pipeline {
         }                
       }
       steps {
-        echo 'Building'
-        echo 'Checking out ' + appImage.getAppName() + ' lastest code...'
-        appImage.checkoutRepository()
+        script {
+          echo 'Building'
+          echo 'Checking out ' + appImage.getAppName() + ' lastest code...'
+          appImage.checkoutRepository()
+        }
 
 //        echo appMap.get(action)
 //        echo appMap.get(action).repo
