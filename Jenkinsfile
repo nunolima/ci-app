@@ -8,6 +8,13 @@ class AppImage {
   String getAppName() {
     repo.substring(0, 1).toUpperCase() + repo.substring(1)
   }
+
+  String checkoutRepository() {
+    echo this.getAppName() + ': ' + repo + ' - ' + repoBranch + ' - ' repoKey
+    //tools.checkoutRepositoryNoPoll('dev', 'daenerys', '20e0cddc-61b3-40c3-a6bc-f630d210b518')
+  }
+
+
 }
 
 class App {
@@ -127,7 +134,7 @@ pipeline {
       steps {
         echo 'Building'
         echo 'Checking out ' + appImage.getAppName() + ' lastest code...'
-//        tools.checkoutRepository('dev', 'daenerys', '20e0cddc-61b3-40c3-a6bc-f630d210b518')
+        appImage.checkoutRepository()
 
 //        echo appMap.get(action)
 //        echo appMap.get(action).repo
