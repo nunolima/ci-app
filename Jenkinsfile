@@ -4,6 +4,7 @@ class AppImage {
   String repo
   String repoBranch
   String repoKey
+  String buildTag
 
   String getAppName() {
     repo.substring(0, 1).toUpperCase() + repo.substring(1)
@@ -14,6 +15,9 @@ class AppImage {
     //tools.checkoutRepositoryNoPoll('dev', 'daenerys', '20e0cddc-61b3-40c3-a6bc-f630d210b518')
   }
 
+  def loadBuildTag() {
+    buildTag = 'HELLO'
+  }
 
 }
 
@@ -138,6 +142,7 @@ pipeline {
           echo 'Checking out ' + appImage.getAppName() + ' lastest code...'
 //        script {
           echo appImage.checkoutRepository()
+          appImage.loadBuildTag
 //        }
 
 //        echo appMap.get(action)
