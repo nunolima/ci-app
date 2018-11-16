@@ -1,9 +1,17 @@
 #!/usr/bin/env groovy
 
-class App {
+class AppImage {
   String repo
   String repoBranch
   String repoKey
+
+  String getAppName() {
+    repo.substring(0, 1).toUpperCase() + repo.substring(1)
+  }
+}
+
+class App {
+  AppImage appImage
   String service
   String cfgRepo
   String cfgBranch
@@ -78,11 +86,15 @@ def String getActionCountry(String action) {
 // 'staging-*-*'
 // 'production-*-*'
 
-def appMap = [:]
-appMap['staging-one-ng'] = new App(
+appImage = new AppImage(
   repo:       'daenerys',
   repoBranch: 'dev',
-  repoKey:    '20e0cddc-61b3-40c3-a6bc-f630d210b518',
+  repoKey:    '20e0cddc-61b3-40c3-a6bc-f630d210b518'
+)
+
+def appMap = [:]
+appMap['staging-one-ng'] = new App(
+  appImage:   appImage,
   service:    'one',
   cfgRepo:    'configsone',
   cfgBranch:  'dev',
@@ -91,9 +103,7 @@ appMap['staging-one-ng'] = new App(
 )
 
 appMap['staging-one-eg'] = new App(
-  repo:       'daenerys',
-  repoBranch: 'dev',
-  repoKey:    '20e0cddc-61b3-40c3-a6bc-f630d210b518',
+  appImage:   appImage,
   service:    'one',
   cfgRepo:    'configsone',
   cfgBranch:  'production',
@@ -116,6 +126,9 @@ pipeline {
       }
       steps {
         echo 'Building'
+        echo 'Checking out ' + appImage.getAppName() + ' lastest code...'
+//        tools.checkoutRepository('dev', 'daenerys', '20e0cddc-61b3-40c3-a6bc-f630d210b518')
+
 //        echo appMap.get(action)
 //        echo appMap.get(action).repo
 //        echo "### SERVICE: " + appMap.get(action).getService()
@@ -163,6 +176,32 @@ pipeline {
 
   }
 }
+
+
+
+
+
+echo 'Checking out Daenerys lastest code...'
+tools.checkoutRepositoryNoPoll('dev', 'daenerys', '20e0cddc-61b3-40c3-a6bc-f630d210b518')
+
+echo 'Checking out Jforce configuration...'
+tools.checkoutRepositoryNoPoll('staging', 'configsjforce', '7c6eaf56-f3b5-436b-bff8-b9a4e0999
+
+echo 'Checking out charts...'
+tools.checkoutRepositoryNoPoll('master', 'charts', '11c90820-6b3c-4bc5-aab3-67f8b550f30b')
+
+echo 'Load staging Jforce configuration...'
+sh 'cp -f configsjforce/ci/daenerys.yml charts/raw/config.yml'
+
+echo 'Deploying Daenerys in staging...'
+buildTag = tools.getBuild('daenerys')
+tools.kubernetesDeploy('jforce', 'staging', 'daenerys-ci', 'raw', buildTag)
+
+echo 'Cleaning...'
+sh 'rm -f charts/raw/config.yml'
+
+
+
 
 
 
