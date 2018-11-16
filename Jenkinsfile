@@ -142,7 +142,7 @@ pipeline {
           echo 'Checking out ' + appImage.getAppName() + ' lastest code...'
 //        script {
           echo appImage.checkoutRepository()
-          appImage.loadBuildTag
+          appImage.loadBuildTag()
 //        }
 
 //        echo appMap.get(action)
