@@ -180,7 +180,7 @@ pipeline {
 
 
 
-
+/*
 echo 'Checking out Daenerys lastest code...'
 tools.checkoutRepositoryNoPoll('dev', 'daenerys', '20e0cddc-61b3-40c3-a6bc-f630d210b518')
 
@@ -200,7 +200,7 @@ tools.kubernetesDeploy('jforce', 'staging', 'daenerys-ci', 'raw', buildTag)
 echo 'Cleaning...'
 sh 'rm -f charts/raw/config.yml'
 
-
+*/
 
 
 
