@@ -5,7 +5,7 @@ class AppImage {
   String repoBranch
   String repoKey
 
-  String getAppName() {
+  def String getAppName() {
     repo.substring(0, 1).toUpperCase() + repo.substring(1)
   }
 
@@ -86,6 +86,8 @@ def String getActionCountry(String action) {
   str[2]
 }
 
+//String getAppName(String )
+
 // ==================================================================
 
 //String buildApp(String userAction, def appMap)
@@ -132,9 +134,9 @@ pipeline {
         }                
       }
       steps {
-        script {
           echo 'Building'
           echo 'Checking out ' + appImage.getAppName() + ' lastest code...'
+        script {
           appImage.checkoutRepository()
         }
 
